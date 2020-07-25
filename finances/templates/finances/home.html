@@ -1,0 +1,23 @@
+<html>
+<head>
+	<title>MoneyInsights</title>
+	MoneyInsights Home
+</head>
+<body>
+	{% if username %}
+	<h2>Welcome, {{username}} </h2>
+	{% endif %}
+	<a href="/finances/logout">Logout</a>
+	<div>
+		<h1>Finance stats</h1>
+		{% for key,value in stats.items %}
+		<label>{{ key }}: </label>
+		<label>{{ value }}</label><br>
+		{% endfor %}
+	</div>
+	<div>
+		<a href="/finances/assets/view">Assets</a>
+		<a href="/finances/statements/view">Statements</a>
+	</div>
+</body>
+</html>

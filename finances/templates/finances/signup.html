@@ -1,0 +1,14 @@
+<html>
+<head>
+	<title>MoneyInsights</title>
+	MoneyInsights
+</head>
+<body>
+	<h1>User creation</h1>
+	<form  method="post">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button type="submit">Sign Up</button>
+	</form>
+</body>
+</html>

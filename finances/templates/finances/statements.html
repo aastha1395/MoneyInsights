@@ -1,0 +1,61 @@
+<html>
+<head>
+	<title>MoneyInsights</title>
+	MoneyInsights Monthly Statements View
+</head>
+<body>
+	<a href="/finances/home">Home</a>
+	<a href="/finances/logout">Logout</a>
+	<h1>Add a monthly statement</h1>
+	<form action="{% url 'finances:statements_add' %}" method="post">
+	{% csrf_token %}
+		<label>Year: </label>
+		<input type="text" name="year"/>
+		<label>Month: </label>
+		<!-- <input type="month" name="month"/> -->
+		<select name="month">
+			<option value="1">January</option>
+			<option value="2">February</option>
+			<option value="3">March</option>
+			<option value="4">April</option>
+			<option value="5">May</option>
+			<option value="6">June</option>
+			<option value="7">July</option>
+			<option value="8">August</option>
+			<option value="9">September</option>
+			<option value="10">October</option>
+			<option value="11">November</option>
+			<option value="12">December</option>
+		</select><br>
+		<label>Salary: </label>
+		<input type="text" name="salary"/>
+		<label>Expenses: </label>
+		<input type="text" name="expenses"/>
+		<label>Savings: </label>
+		<input type="text" name="savings"/>
+		<label>Liquid amount: </label>
+		<input type="text" name="liquid"/>
+		<input type="submit" value="Add">
+	</form>
+
+	{% if statement_objects %}
+	<table>
+		<th>Year</th>
+		<th>Month</th>
+		<th>Salary</th>
+		<th>Expenses</th>
+		<th>Savings</th>
+		{% for statement in statement_objects %}
+		<tr>
+			<td>{{statement.month_year|date:"Y"}}</td>
+			<td>{{statement.month_year|date:"F"}}</td>
+			<td>{{statement.salary}}</td>
+			<td>{{statement.expenses}}</td>
+			<td>{{statement.savings}}</td>
+		</tr>
+		{% endfor %}
+	</table>
+	{% else %}
+	<p>No data found</p>
+	{% endif %}
+</body>

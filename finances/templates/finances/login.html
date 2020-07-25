@@ -1,0 +1,17 @@
+<html>
+<head>
+	<title>MoneyInsights</title>
+	MoneyInsights
+</head>
+<body>
+	<h1>User Log in</h1>
+	{% if message %}
+	<h3 style="color:red";>{{message}}</h3>
+	{% endif %}
+	<form  method="post">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button type="submit">Log In</button>
+	</form>
+</body>
+</html>

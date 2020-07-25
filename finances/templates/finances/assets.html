@@ -1,0 +1,54 @@
+<html>
+<head>
+	<title>MoneyInsights</title>
+	MoneyInsights Assets View
+</head>
+<body>
+	<a href="/finances/home">Home</a>
+	<a href="/finances/logout">Logout</a>
+	<h1>Add an asset</h1>
+	<form action="{% url 'finances:assets_add' %}" method="post">
+	{% csrf_token %}
+		<label>Asset Type: </label>
+		<input type="text" name="asset_type"/>
+		<label>Description: </label>
+		<input type="text" name="description"/><br>
+		<label>Value: </label>
+		<input type="text" name="value"/>
+		<input type="submit" value="Add">
+	</form>
+
+	{% if active_asset_objects %}
+	<table>
+		<th>Asset Type</th>
+		<th>Description</th>
+		<th>Value</th>
+		{% for asset in active_asset_objects %}
+		<tr>
+			<td>{{asset.asset_type}}</td>
+			<td>{{asset.description}}</td>
+			<td>{{asset.value}}</td>
+		</tr>
+		{% endfor %}
+	</table>
+	{% else %}
+	<p>No active assets found</p>
+	{% endif %}
+
+	{% if inactive_asset_objects %}
+	<table>
+		<th>Asset Type</th>
+		<th>Description</th>
+		<th>Value</th>
+		{% for asset in inactive_asset_objects %}
+		<tr>
+			<td>{{asset.asset_type}}</td>
+			<td>{{asset.description}}</td>
+			<td>{{asset.value}}</td>
+		</tr>
+		{% endfor %}
+	</table>
+	{% else %}
+	<p>No inactive assets found</p>
+	{% endif %}
+</body>
