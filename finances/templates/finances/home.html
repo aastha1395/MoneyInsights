@@ -1,23 +1,28 @@
 <html>
 <head>
-	<title>MoneyInsights</title>
-	MoneyInsights Home
+	<title>MoneyInsights Home</title>
 </head>
 <body>
+	<header>
+		<h1>MoneyInsights</h1>
+		{% load static %}
+		<img src="{% static 'images/logo.png' %}" alt="logo" width="250" height="200"/>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/assets/view">Assets</a>
+			<a href="/statements/view">Statements</a>
+			<a href="/logout">Logout</a>
+		</nav>
+	</header>
 	{% if username %}
 	<h2>Welcome, {{username}} </h2>
 	{% endif %}
-	<a href="/finances/logout">Logout</a>
 	<div>
 		<h1>Finance stats</h1>
 		{% for key,value in stats.items %}
 		<label>{{ key }}: </label>
 		<label>{{ value }}</label><br>
 		{% endfor %}
-	</div>
-	<div>
-		<a href="/finances/assets/view">Assets</a>
-		<a href="/finances/statements/view">Statements</a>
 	</div>
 </body>
 </html>

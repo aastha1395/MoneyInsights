@@ -13,44 +13,45 @@ from finances.models import Asset, MonthlyStatement
 
 
 def signup(request):
+	error_message = None
 	if request.method == 'POST':
 		form = UserCreationForm(request.POST)
 		if form.is_valid():
 			form.save()
-			return redirect('/finances/login')
+			return redirect('finances:login')
 		else:
-			pass
-	else:
-		form = UserCreationForm()
-		context = {'form': form}
+			error_message = 'Invalid form'
+	
+	form = UserCreationForm()
+	context = {'form': form, 'message': error_message}
 	return render(request, 'finances/signup.html', context)
 
 
 def log_in(request):
 	error_message = None
-
 	if request.method == 'POST':
 		username = request.POST.get('username')
 		raw_password = request.POST.get('password')
 		user = authenticate(username=username, password=raw_password)
 		if user:
 			login(request, user)
-			return redirect('/finances/home')
+			return redirect('finances:home')
 		else:
 			error_message = 'Incorrect username or password'
+	
 	form = AuthenticationForm()
 	context = {'form': form, 'message': error_message}
-	return render(request, 'finances/login.html', context)	
+	return render(request, 'finances/login.html', context)
 
 def log_out(request):
 	logout(request)
-	return redirect('/finances/login')
+	return redirect('finances:home')
 
 
 @require_GET
-def index(request):
+def home(request):
 	if not request.user.is_authenticated:
-		return redirect('/finances/login')
+		return render(request, 'finances/welcome.html')
 
 	username = request.user.username
 	user_id = request.user.id
@@ -124,7 +125,7 @@ def assets_add(request):
 		if error_message:
 			context = {'message': error_message, 'redirect_url': '/finances/assets/view'}
 			return render(request, 'finances/alert.html', context)
-	return redirect('/finances/assets/view')
+	return redirect('finances:assets_view')
 
 
 @require_POST
@@ -165,7 +166,7 @@ def statements_add(request):
 		if error_message:
 			context = {'message': error_message, 'redirect_url': '/finances/statements/view'}
 			return render(request, 'finances/alert.html', context)
-	return redirect('/finances/statements/view')
+	return redirect('finances:statements_view')
 
 
 @require_POST

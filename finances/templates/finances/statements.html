@@ -1,11 +1,19 @@
 <html>
 <head>
-	<title>MoneyInsights</title>
-	MoneyInsights Monthly Statements View
+	<title>MoneyInsights Statements View</title>
 </head>
 <body>
-	<a href="/finances/home">Home</a>
-	<a href="/finances/logout">Logout</a>
+	<header>
+		<h1>MoneyInsights</h1>
+		{% load static %}
+		<img src="{% static 'images/logo.png' %}" alt="logo" width="250" height="200"/>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/assets/view">Assets</a>
+			<a href="/statements/view">Statements</a>
+			<a href="/logout">Logout</a>
+		</nav>
+	</header>
 	<h1>Add a monthly statement</h1>
 	<form action="{% url 'finances:statements_add' %}" method="post">
 	{% csrf_token %}
@@ -45,6 +53,7 @@
 		<th>Salary</th>
 		<th>Expenses</th>
 		<th>Savings</th>
+		<th>Liquid Amount</th>
 		{% for statement in statement_objects %}
 		<tr>
 			<td>{{statement.month_year|date:"Y"}}</td>
@@ -52,6 +61,7 @@
 			<td>{{statement.salary}}</td>
 			<td>{{statement.expenses}}</td>
 			<td>{{statement.savings}}</td>
+			<td>{{statement.liquid}}</td>
 		</tr>
 		{% endfor %}
 	</table>

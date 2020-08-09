@@ -1,9 +1,13 @@
 <html>
 <head>
-	<title>MoneyInsights</title>
-	MoneyInsights
+	<title>MoneyInsights Login</title>
 </head>
 <body>
+	<header>
+		<h1>MoneyInsights</h1>
+		{% load static %}
+		<img src="{% static 'images/logo.png' %}" alt="logo" width="250" height="200"/>
+	</header>
 	<h1>User Log in</h1>
 	{% if message %}
 	<h3 style="color:red";>{{message}}</h3>
