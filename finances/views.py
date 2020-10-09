@@ -1,5 +1,6 @@
 import datetime
 import json
+import operator
 
 from django.db.models import Sum
 from django.db.utils import IntegrityError
@@ -140,7 +141,8 @@ def statements_view(request):
 
 	user_id = request.user.id
 	objects = MonthlyStatement.objects.filter(user=user_id)
-	context = {'statement_objects': objects}
+	sorted_objects = sorted(objects, key=operator.attrgetter('month_year'))
+	context = {'statement_objects': sorted_objects}
 	return render(request, 'finances/statements.html', context)
 
 
